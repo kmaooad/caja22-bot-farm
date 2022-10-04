@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class Function {
 
-    private final Pattern pattern = Pattern.compile("(?:\"message_id\":)([0-9]+)");
+    private final Pattern pattern = Pattern.compile("(?:\\s*\"message_id\":\\s*)([0-9]+)");
     /**
      * This function listens at endpoint "/api/TelegramWebhook". To invoke it using "curl" command in bash:
      * curl -d "HTTP Body" {your host}/api/TelegramWebhook
