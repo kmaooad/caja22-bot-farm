@@ -1,23 +1,25 @@
 package edu.kmaooad;
 
-import com.microsoft.azure.functions.*;
-import org.junit.jupiter.api.Disabled;
-import org.mockito.invocation.InvocationOnMock;
+import com.microsoft.azure.functions.ExecutionContext;
+import com.microsoft.azure.functions.HttpRequestMessage;
+import com.microsoft.azure.functions.HttpResponseMessage;
+import com.microsoft.azure.functions.HttpStatus;
+import edu.kmaooad.parser.RequestParser;
+import edu.kmaooad.repository.MongoRepository;
+import org.junit.jupiter.api.Test;
 import org.mockito.stubbing.Answer;
 
-import java.util.*;
+import java.util.Optional;
 import java.util.logging.Logger;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 
 public class FunctionTest {
 
     @Test
-    @Disabled
     public void testHttpTriggerJava() throws Exception {
         // Setup
         @SuppressWarnings("unchecked")
@@ -58,8 +60,16 @@ public class FunctionTest {
         final ExecutionContext context = mock(ExecutionContext.class);
         doReturn(Logger.getGlobal()).when(context).getLogger();
 
+        final MongoRepository mongoRepository = mock(MongoRepository.class);
+
+        final RequestParser requestParser = mock(RequestParser.class);
+        doReturn(25).when(requestParser).getMessageId(any(String.class));
+
         // Invoke
-        final HttpResponseMessage ret = new Function().run(req, context);
+        final Function function = new Function();
+        function.setMongoRepository(mongoRepository);
+        function.setRequestParser(requestParser);
+        final HttpResponseMessage ret = function.run(req, context);
 
         // Verify
         assertEquals(HttpStatus.OK, ret.getStatus());
