@@ -4,6 +4,7 @@ import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatus;
+import edu.kmaooad.exception.InvalidMessageException;
 import edu.kmaooad.parser.RequestParser;
 import edu.kmaooad.repository.MongoRepository;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.*;
 public class FunctionTest {
 
     @Test
-    public void testHttpTriggerJava() throws Exception {
+    public void shouldReturnOkIfRequestIsValid() throws Exception {
         // Setup
         @SuppressWarnings("unchecked")
         final HttpRequestMessage<Optional<String>> req = mock(HttpRequestMessage.class);
@@ -74,5 +75,62 @@ public class FunctionTest {
         // Verify
         assertEquals(HttpStatus.OK, ret.getStatus());
         assertEquals("25", ret.getBody().toString());
+    }
+
+    @Test
+    public void shouldReturnBadRequestIfRequestBodyIsEmpty() throws Exception {
+        // Setup
+        @SuppressWarnings("unchecked")
+        final HttpRequestMessage<Optional<String>> req = mock(HttpRequestMessage.class);
+        final Optional<String> queryBody = Optional.empty();
+        doReturn(queryBody).when(req).getBody();
+
+        doAnswer((Answer<HttpResponseMessage.Builder>) invocation -> {
+            HttpStatus status = (HttpStatus) invocation.getArguments()[0];
+            return new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(status);
+        }).when(req).createResponseBuilder(any(HttpStatus.class));
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+        doReturn(Logger.getGlobal()).when(context).getLogger();
+
+        // Invoke
+        final Function function = new Function();
+        final HttpResponseMessage ret = function.run(req, context);
+
+        // Verify
+        assertEquals(HttpStatus.BAD_REQUEST, ret.getStatus());
+        assertEquals("Request body can't be empty", ret.getBody().toString());
+    }
+
+    @Test
+    public void shouldReturnBadRequestIfRequestBodyIsInvalid() throws Exception {
+        // Setup
+        @SuppressWarnings("unchecked")
+        final HttpRequestMessage<Optional<String>> req = mock(HttpRequestMessage.class);
+        final Optional<String> queryBody = Optional.of("test body");
+        doReturn(queryBody).when(req).getBody();
+
+        doAnswer((Answer<HttpResponseMessage.Builder>) invocation -> {
+            HttpStatus status = (HttpStatus) invocation.getArguments()[0];
+            return new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(status);
+        }).when(req).createResponseBuilder(any(HttpStatus.class));
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+        doReturn(Logger.getGlobal()).when(context).getLogger();
+
+        final MongoRepository mongoRepository = mock(MongoRepository.class);
+
+        final RequestParser requestParser = mock(RequestParser.class);
+        doThrow(new InvalidMessageException("Exception message")).when(requestParser).getMessageId(any(String.class));
+
+        // Invoke
+        final Function function = new Function();
+        function.setMongoRepository(mongoRepository);
+        function.setRequestParser(requestParser);
+        final HttpResponseMessage ret = function.run(req, context);
+
+        // Verify
+        assertEquals(HttpStatus.BAD_REQUEST, ret.getStatus());
+        assertEquals("Exception message", ret.getBody().toString());
     }
 }
