@@ -1,4 +1,4 @@
-package edu.kmaooad.web;
+package edu.kmaooad.utils;
 
 import com.microsoft.azure.functions.*;
 import java.util.HashMap;

@@ -21,7 +21,7 @@ public class TelegramWebhookTest {
 
     final AddMessageResult expected = new AddMessageResult(true, "25", null);
 
-    final TelegramWebhook telegramWebhook = new TelegramWebhook(messageRepository, requestParser);
+    final TelegramWebhook telegramWebhook = new TelegramWebhook(requestParser, messageRepository);
     final AddMessageResult actual = telegramWebhook.apply(new AddMessage(""));
 
     assertEquals(expected.isSuccessful(), actual.isSuccessful());
@@ -39,7 +39,7 @@ public class TelegramWebhookTest {
 
     final AddMessageResult expected = new AddMessageResult(false, null, "Exception message");
 
-    final TelegramWebhook telegramWebhook = new TelegramWebhook(messageRepository, requestParser);
+    final TelegramWebhook telegramWebhook = new TelegramWebhook(requestParser, messageRepository);
     final AddMessageResult actual = telegramWebhook.apply(new AddMessage(""));
 
     assertEquals(expected.isSuccessful(), actual.isSuccessful());

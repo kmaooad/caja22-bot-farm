@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TelegramWebhook implements Function<AddMessage, AddMessageResult> {
 
-  private final MessageRepository messageRepository;
   private final RequestParser requestParser;
+  private final MessageRepository messageRepository;
 
   @Override
   public AddMessageResult apply(AddMessage addMessage) {
