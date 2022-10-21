@@ -1,6 +1,6 @@
 package edu.kmaooad.repository;
 
-public interface MessageRepository {
+import edu.kmaooad.domain.Message;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-  void insertMessage(String message);
-}
+public interface MessageRepository extends MongoRepository<Message, String> {}
