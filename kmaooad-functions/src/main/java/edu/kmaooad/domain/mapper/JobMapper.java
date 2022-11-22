@@ -8,9 +8,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface JobMapper {
 
-    @Mapping(target = "title", source = "title")
-    @Mapping(target = "description", source = "description")
-    @Mapping(target = "isActive", constant = "true")
-    @Mapping(target = "title", source = "title")
-    Job toJob(AddJobDTO addJobDTO);
+  @Mapping(target = "title", source = "title")
+  @Mapping(target = "description", source = "description")
+  @Mapping(target = "isActive", constant = "true")
+  @Mapping(target = "activities", source = "activities")
+  @Mapping(target = "competences", source = "competences")
+  Job toJob(AddJobDTO addJobDTO);
 }

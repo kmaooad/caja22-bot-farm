@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   data:
     mongodb:
@@ -7,5 +10,5 @@ spring:
 telegram:
   api-url: https://api.telegram.org/
   webhook-path: https://kmaooad-bot-farm.azurewebsites.net/api/TelegramWebhook
-  bot-name: #to add
+  bot-name: kmaooad-botfarm
   bot-token: 5427359670:AAHPbqL79O20rV2MAEJz1TFEKQeVTTXBq_Y

@@ -8,9 +8,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringBootApplication
 @ConfigurationPropertiesScan
 @EnableMongoRepositories
-public class Application {
+public class BotFarmApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(Application.class, args);
+    SpringApplication.run(BotFarmApplication.class, args);
   }
 }

@@ -1,18 +1,17 @@
 package edu.kmaooad.domain.dto.job;
 
+import java.util.List;
 import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
-
-import java.util.List;
 
 @Value
 @Builder
 @Jacksonized
 public class AddJobDTO {
 
-    String title;
-    String description;
-    List<String> activities;
-    List<String> competences;
+  String title;
+  String description;
+  List<String> activities;
+  List<String> competences;
 }

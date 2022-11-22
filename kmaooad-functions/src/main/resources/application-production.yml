@@ -1,5 +1,14 @@
+server:
+  port: 8080
+
 spring:
   data:
     mongodb:
       uri: mongodb+srv://user:Password1@cluster0.jtpouhq.mongodb.net/?retryWrites=true&w=majority
       database: telegram
+
+telegram:
+  api-url: https://api.telegram.org/
+  webhook-path: https://kmaooad-bot-farm.azurewebsites.net/api/TelegramWebhook
+  bot-name: kmaooad-botfarm
+  bot-token: 5427359670:AAHPbqL79O20rV2MAEJz1TFEKQeVTTXBq_Y

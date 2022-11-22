@@ -11,19 +11,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JobServiceImpl implements JobService {
 
-    private final JobRepository jobRepository;
-    private final JobMapper jobMapper;
+  private final JobRepository jobRepository;
+  private final JobMapper jobMapper;
 
-    @Override
-    public Job addJob(AddJobDTO addJobDTO) {
-        final Job job = jobMapper.toJob(addJobDTO);
-        jobRepository.save(job);
-        return job;
-    }
+  @Override
+  public Job addJob(AddJobDTO addJobDTO) {
+    final Job job = jobMapper.toJob(addJobDTO);
+    jobRepository.save(job);
+    return job;
+  }
 
-    @Override
-    public boolean deleteJob(String jobId) {
-        jobRepository.deleteById(jobId);
-        return jobRepository.existsById(jobId);
-    }
+  @Override
+  public boolean deleteJob(String jobId) {
+    jobRepository.deleteById(jobId);
+    return jobRepository.existsById(jobId);
+  }
 }

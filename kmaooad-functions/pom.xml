@@ -25,7 +25,7 @@
         <azure.functions.maven.plugin.version>1.20.0</azure.functions.maven.plugin.version>
         <azure.functions.java.library.version >2.0.1</azure.functions.java.library.version>
         <functionAppName>kmaooad-functions-20220927162321908</functionAppName>
-        <start-class>edu.kmaooad.Application</start-class>
+        <start-class>edu.kmaooad.BotFarmApplication</start-class>
     </properties>
 
     <dependencyManagement>
@@ -95,6 +95,11 @@
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.24</version>
+                        </path>
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
@@ -189,7 +194,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>edu.kmaooad.Application</mainClass>
+                    <mainClass>edu.kmaooad.BotFarmApplication</mainClass>
                 </configuration>
             </plugin>
 

@@ -5,7 +5,7 @@ import edu.kmaooad.domain.model.Job;
 
 public interface JobService {
 
-    Job addJob(AddJobDTO addJobDTO);
+  Job addJob(AddJobDTO addJobDTO);
 
-    boolean deleteJob(String jobId);
+  boolean deleteJob(String jobId);
 }
