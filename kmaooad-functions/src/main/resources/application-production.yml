@@ -9,6 +9,7 @@ spring:
 
 telegram:
   api-url: https://api.telegram.org/
+  set-webhook-path: https://api.telegram.org/bot%s/setWebhook?url=%s
   webhook-path: https://kmaooad-bot-farm.azurewebsites.net/api/TelegramWebhook
   bot-name: kmaooad-botfarm
   bot-token: 5427359670:AAHPbqL79O20rV2MAEJz1TFEKQeVTTXBq_Y

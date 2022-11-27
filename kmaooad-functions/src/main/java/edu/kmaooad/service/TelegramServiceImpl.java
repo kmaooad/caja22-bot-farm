@@ -1,6 +1,6 @@
 package edu.kmaooad.service;
 
-import edu.kmaooad.sender.TelegramMessageSender;
+import edu.kmaooad.telegram.TelegramMessageSender;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -29,6 +29,7 @@ public class TelegramServiceImpl implements TelegramService {
       telegramMessageSender.execute(sendMessage);
     } catch (TelegramApiException e) {
       log.error("Error while sending message to telegram!", e);
+      throw new RuntimeException(e);
     }
   }
 }

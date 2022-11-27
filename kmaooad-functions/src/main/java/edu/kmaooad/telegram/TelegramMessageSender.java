@@ -1,4 +1,4 @@
-package edu.kmaooad.sender;
+package edu.kmaooad.telegram;
 
 import edu.kmaooad.config.TelegramProperties;
 import org.springframework.stereotype.Component;
