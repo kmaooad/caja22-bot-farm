@@ -3,7 +3,7 @@ package edu.kmaooad.command;
 import java.util.stream.Stream;
 
 public enum Command {
-  START("/start"),
+  GET_JOBS("/getjobs"),
   ADD_JOB("/addjob"),
   UNKNOWN_COMMAND("");
 

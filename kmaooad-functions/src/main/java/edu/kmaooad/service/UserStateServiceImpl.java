@@ -1,10 +1,8 @@
 package edu.kmaooad.service;
 
-import edu.kmaooad.command.Command;
 import edu.kmaooad.domain.model.UserState;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,8 +15,11 @@ public class UserStateServiceImpl implements UserStateService {
   }
 
   @Override
-  public Optional<UserState> getStateForUser(Long chatId) {
-    return Optional.ofNullable(userStateMap.get(chatId));
+  public UserState getStateForUser(Long chatId) {
+    if (!userStateMap.containsKey(chatId)) {
+      userStateMap.put(chatId, UserState.newEmptyState(chatId));
+    }
+    return userStateMap.get(chatId);
   }
 
   @Override

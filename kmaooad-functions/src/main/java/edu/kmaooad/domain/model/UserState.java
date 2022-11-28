@@ -1,11 +1,10 @@
 package edu.kmaooad.domain.model;
 
 import edu.kmaooad.command.Command;
+import edu.kmaooad.command.handler.CommandState;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import edu.kmaooad.command.handler.CommandState;
 import lombok.*;
 
 @Getter
@@ -17,7 +16,8 @@ public class UserState {
   private CommandState commandState;
   private final Map<String, String> inputs;
 
-  public UserState(Long chatId, Command currentCommand, CommandState commandState, Map<String, String> inputs) {
+  public UserState(
+      Long chatId, Command currentCommand, CommandState commandState, Map<String, String> inputs) {
     this.chatId = chatId;
     this.currentCommand = currentCommand;
     this.commandState = commandState;
@@ -28,10 +28,18 @@ public class UserState {
     return new UserState(chatId, null, null, new HashMap<>());
   }
 
+  public void addInput(String property, String input) {
+    inputs.put(property, input);
+  }
+
   public void clear() {
     this.inputs.clear();
     this.currentCommand = null;
     this.commandState = null;
+  }
+
+  public boolean isEmpty() {
+    return Objects.isNull(commandState) || Objects.isNull(currentCommand);
   }
 
   @Override

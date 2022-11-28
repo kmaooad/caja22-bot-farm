@@ -18,30 +18,16 @@ public class CommandDispatcher {
 
   public void dispatch(UserRequest userRequest) {
     if (userRequest.isCommand()) {
-      // if user already has command - switch to new command, clear old state
-      // start handling command
-      // TODO: maybe move new state initialization to command handlers
-      userStateService
-          .getStateForUser(userRequest.getChatId())
-          .ifPresentOrElse(
-              UserState::clear,
-              () -> {
-                final Long chatId = userRequest.getChatId();
-                final UserState emptyState = UserState.newEmptyState(chatId);
-                userStateService.setStateForUser(chatId, emptyState);
-              });
-
       final Command command = Command.fromString(userRequest.getText());
       final CommandHandler commandHandler = getHandlerForCommand(command);
       commandHandler.handle(userRequest);
     } else {
-      // find active command for user and continue handling it
-      // if no active command - ignore
-      userStateService
-          .getStateForUser(userRequest.getChatId())
-          .map(UserState::getCurrentCommand)
-          .map(this::getHandlerForCommand)
-          .ifPresent(handler -> handler.handle(userRequest));
+      final UserState userState = userStateService.getStateForUser(userRequest.getChatId());
+      if (!userState.isEmpty()) {
+        final Command currentCommand = userState.getCurrentCommand();
+        final CommandHandler commandHandler = getHandlerForCommand(currentCommand);
+        commandHandler.handle(userRequest);
+      }
     }
   }
 
