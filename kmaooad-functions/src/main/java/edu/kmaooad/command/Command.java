@@ -5,6 +5,8 @@ import java.util.stream.Stream;
 public enum Command {
   GET_JOBS("/getjobs"),
   ADD_JOB("/addjob"),
+  DELETE_JOB("/deletejob"),
+  CANCEL("/cancel"),
   UNKNOWN_COMMAND("");
 
   private final String value;

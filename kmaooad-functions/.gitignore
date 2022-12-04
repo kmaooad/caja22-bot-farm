@@ -39,4 +39,4 @@ bin/
 obj/
 
 # Custom
-examples/
+helpers/

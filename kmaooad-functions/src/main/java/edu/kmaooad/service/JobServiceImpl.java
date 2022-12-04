@@ -5,6 +5,7 @@ import edu.kmaooad.domain.mapper.JobMapper;
 import edu.kmaooad.domain.model.Job;
 import edu.kmaooad.repository.JobRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,13 @@ public class JobServiceImpl implements JobService {
   }
 
   @Override
+  public Optional<Job> getJobById(String jobId) {
+    return jobRepository.findById(jobId);
+  }
+
+  @Override
   public Job addJob(AddJobDTO addJobDTO) {
+
     final Job job = jobMapper.toJob(addJobDTO);
     jobRepository.save(job);
     return job;

@@ -10,6 +10,6 @@ spring:
 telegram:
   api-url: https://api.telegram.org/
   set-webhook-path: https://api.telegram.org/bot%s/setWebhook?url=%s
-  webhook-path: https://8ddc-31-128-76-0.eu.ngrok.io/api/TelegramWebhook
+  webhook-path: https://8ddc-31-128-76-0.eu.ngrok.io/api/TelegramWebhook # should be adjusted during local development
   bot-name: kmaooad-botfarm
   bot-token: 5427359670:AAHPbqL79O20rV2MAEJz1TFEKQeVTTXBq_Y

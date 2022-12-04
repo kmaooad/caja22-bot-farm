@@ -212,6 +212,7 @@
                             <version>1.15.0</version>
                             <reflowLongStrings>true</reflowLongStrings>
                         </googleJavaFormat>
+                        <removeUnusedImports />
                     </java>
                 </configuration>
             </plugin>
