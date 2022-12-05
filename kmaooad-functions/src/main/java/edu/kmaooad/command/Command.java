@@ -7,6 +7,7 @@ public enum Command {
   ADD_JOB("/addjob"),
   DELETE_JOB("/deletejob"),
   CANCEL("/cancel"),
+  ADD_CV("/addcv"),
   UNKNOWN_COMMAND("");
 
   private final String value;
