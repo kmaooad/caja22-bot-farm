@@ -8,6 +8,8 @@ public enum Command {
   DELETE_JOB("/deletejob"),
   CANCEL("/cancel"),
   ADD_CV("/addcv"),
+  DELETE_CV("/deletecv"),
+  GET_ALL_CV("/getallcv"),
   UNKNOWN_COMMAND("");
 
   private final String value;

@@ -22,5 +22,25 @@ public class CV {
     List<String> activities;
     List<String> preferences;
     List<String> competences;
+
+    public CV(
+            String id,
+            String name,
+            String description,
+            Boolean isActive,
+            Boolean manageCompetencies,
+            List<String> activities,
+            List<String> preferences,
+            List<String> competences
+    ) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.isActive = isActive;
+        this.manageCompetencies = manageCompetencies;
+        this.activities = activities;
+        this.preferences = preferences;
+        this.competences = competences;
+    }
 }
 

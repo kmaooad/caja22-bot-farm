@@ -142,7 +142,7 @@ public class AddCVCommandHandler implements CommandHandler  {
 
     private void initializeUserState(UserRequest userRequest, UserState userState) {
         final Long chatId = userRequest.getChatId();
-        userState.setCurrentCommand(Command.ADD_JOB);
+        userState.setCurrentCommand(Command.ADD_CV);
         userState.setCommandState(AddCVCommandHandler.AddCVState.WAITING_FOR_NAME);
         userStateService.setStateForUser(chatId, userState);
         telegramService.sendMessage(chatId, AddCVCommandHandler.AddCVState.WAITING_FOR_NAME.getMessage());
@@ -150,6 +150,6 @@ public class AddCVCommandHandler implements CommandHandler  {
 
     @Override
     public boolean canHandle(Command command) {
-        return command.equals(Command.ADD_JOB);
+        return command.equals(Command.ADD_CV);
     }
 }
