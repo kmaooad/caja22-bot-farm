@@ -14,10 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class CV {
 
     @Id String id;
-
     String name;
     String description;
-    Boolean isActive;
+    Boolean isActive; // Open for hires
     Boolean manageCompetencies;
     List<String> activities;
     List<String> preferences;

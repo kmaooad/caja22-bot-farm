@@ -106,16 +106,16 @@ public class AddCVCommandHandler implements CommandHandler  {
                 break;
 
             case WAITING_FOR_COMPETENCES:
-                userState.addInput("preferences", userInput);
+                userState.addInput("competences", userInput);
                 userState.setCommandState(AddCVCommandHandler.AddCVState.WAITING_FOR_PREFERENCES);
                 telegramService.sendMessage(chatId, AddCVCommandHandler.AddCVState.WAITING_FOR_PREFERENCES.getMessage());
                 userStateService.setStateForUser(chatId, userState);
                 break;
 
             case WAITING_FOR_PREFERENCES:
-                userState.addInput("competences", userInput);
-                userState.setCommandState(AddCVCommandHandler.AddCVState.WAITING_FOR_COMPETENCES);
-                telegramService.sendMessage(chatId, AddCVCommandHandler.AddCVState.WAITING_FOR_COMPETENCES.getMessage());
+                userState.addInput("preferences", userInput);
+                userState.setCommandState(AddCVCommandHandler.AddCVState.WAITING_FOR_IS_ACTIVE);
+                telegramService.sendMessage(chatId, AddCVCommandHandler.AddCVState.WAITING_FOR_IS_ACTIVE.getMessage());
                 userStateService.setStateForUser(chatId, userState);
                 break;
 

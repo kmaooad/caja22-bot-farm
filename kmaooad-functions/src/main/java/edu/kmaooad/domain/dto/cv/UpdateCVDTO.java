@@ -4,12 +4,14 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
+import org.springframework.data.annotation.Id;
 
 @Value
 @Builder
 @Jacksonized
 public class UpdateCVDTO {
 
+    @Id String id;
     String name;
     String description;
     Boolean isActive;

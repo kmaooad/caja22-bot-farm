@@ -63,7 +63,7 @@ public class DeleteCVCommandHandler implements CommandHandler {
 
         switch (currentState) {
             case WAITING_FOR_CV_DECISION:
-                userState.addInput("manageCompetencies", userInput);
+                userState.addInput("decision", userInput);
                 DeleteCVCommandHandler.DeleteCVState nextState = Objects.equals(userInput, "Y") ? DeleteCVState.WAITING_FOR_CV_NAME : DeleteCVState.WAITING_FOR_CV_ID;
                 userState.setCommandState(nextState);
                 telegramService.sendMessage(chatId, nextState.getMessage());
@@ -78,7 +78,7 @@ public class DeleteCVCommandHandler implements CommandHandler {
                     telegramService.sendMessage(chatId, "Successfully deleted CV!");
                 } else {
                     telegramService.sendMessage(
-                            chatId, "CV with provided id doesn't exists! Please, provide a valid id");
+                            chatId, "CV with provided id doesn't exist!");
                 }
                 break;
 
@@ -90,7 +90,7 @@ public class DeleteCVCommandHandler implements CommandHandler {
                     telegramService.sendMessage(chatId, "Successfully deleted CV!");
                 } else {
                     telegramService.sendMessage(
-                            chatId, "CV with provided full name doesn't exists! Please, provide a valid id");
+                            chatId, "CV with provided full name doesn't exist!");
                 }
                 break;
         }
