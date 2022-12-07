@@ -11,7 +11,7 @@ import org.springframework.data.annotation.Id;
 @Jacksonized
 public class UpdateCVDTO {
 
-    @Id String id;
+    String id;
     String name;
     String description;
     Boolean isActive;

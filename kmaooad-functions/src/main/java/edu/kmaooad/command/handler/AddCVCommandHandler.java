@@ -127,7 +127,7 @@ public class AddCVCommandHandler implements CommandHandler  {
                                 .name(inputs.get("name"))
                                 .description(inputs.get("description"))
                                 .activities(List.of(inputs.get("activities")))
-                                .competences(List.of(inputs.get("competences")))
+                                .competences( inputs.get("competences") != null ? List.of(inputs.get("competences")) : List.of()) // form list automatically
                                 .preferences(List.of(inputs.get("preferences"))) // check if not empty!
                                 .isActive(Objects.equals(inputs.get("isActive"), "Y"))
                                 .manageCompetencies(Objects.equals(inputs.get("manageCompetencies"), "Y"))

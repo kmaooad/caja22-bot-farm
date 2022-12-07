@@ -1,7 +1,6 @@
 package edu.kmaooad.command.handler;
 
 import edu.kmaooad.command.Command;
-import edu.kmaooad.domain.dto.cv.AddCVDTO;
 import edu.kmaooad.domain.dto.cv.UpdateCVDTO;
 import edu.kmaooad.domain.model.CV;
 import edu.kmaooad.domain.model.UserRequest;
@@ -184,7 +183,7 @@ public class UpdateCVCommandHandler implements CommandHandler  {
                                         .name(Objects.equals(inputs.get("name"), "skip") ? cv.getName(): inputs.get("name"))
                                         .description(Objects.equals(inputs.get("description"), "skip") ? cv.getDescription(): inputs.get("description"))
                                         .activities(Objects.equals(inputs.get("activities"), "skip") ? cv.getActivities(): List.of(inputs.get("activities")))
-                                        .competences(Objects.equals(inputs.get("competences"), "skip") ? cv.getCompetences(): List.of(inputs.get("competences")))
+                                        .competences(Objects.equals(inputs.get("competences"), "skip") ? cv.getCompetences(): (inputs.get("competences") != null ? List.of(inputs.get("competences")) : List.of())) // form list automatically))
                                         .preferences(Objects.equals(inputs.get("preferences"), "skip") ? cv.getPreferences(): List.of(inputs.get("preferences")))
                                         .isActive(Objects.equals(inputs.get("isActive"), "skip") ? cv.getIsActive(): (Objects.equals(inputs.get("isActive"), "Y")))
                                         .manageCompetencies(Objects.equals(inputs.get("manageCompetencies"), "skip") ? cv.getManageCompetencies(): Objects.equals(inputs.get("manageCompetencies"), "Y"))
