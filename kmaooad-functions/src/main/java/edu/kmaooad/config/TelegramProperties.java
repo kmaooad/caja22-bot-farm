@@ -9,8 +9,6 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 @Value
 public class TelegramProperties {
 
-  String setWebhookPath;
-  String webhookPath;
   String botName;
   String botToken;
 }

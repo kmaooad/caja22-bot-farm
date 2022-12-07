@@ -10,12 +10,11 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class AddCVDTO {
 
-    String name;
-    String description;
-    Boolean isActive;
-    Boolean manageCompetencies;
-    List<String> activities;
-    List<String> preferences;
-    List<String> competences;
+  String name;
+  String description;
+  Boolean isActive;
+  Boolean manageCompetencies;
+  List<String> activities;
+  List<String> preferences;
+  List<String> competences;
 }
-
