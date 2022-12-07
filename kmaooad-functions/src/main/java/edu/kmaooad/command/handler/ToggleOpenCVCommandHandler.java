@@ -123,9 +123,9 @@ public class ToggleOpenCVCommandHandler implements CommandHandler {
     private void initializeUserState(UserRequest userRequest, UserState userState) {
         final Long chatId = userRequest.getChatId();
         userState.setCurrentCommand(Command.TOGGLE_CV_HIRES);
-        userState.setCommandState(ToggleHireCVState.WAITING_FOR_TOGGLE_CV_ID);
+        userState.setCommandState(ToggleHireCVState.WAITING_FOR_TOGGLE_CV_DECISION);
         userStateService.setStateForUser(chatId, userState);
-        telegramService.sendMessage(chatId, ToggleHireCVState.WAITING_FOR_TOGGLE_CV_ID.getMessage());
+        telegramService.sendMessage(chatId, ToggleHireCVState.WAITING_FOR_TOGGLE_CV_DECISION.getMessage());
     }
 
     @Override

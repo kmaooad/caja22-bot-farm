@@ -99,9 +99,9 @@ public class DeleteCVCommandHandler implements CommandHandler {
     private void initializeUserState(UserRequest userRequest, UserState userState) {
         final Long chatId = userRequest.getChatId();
         userState.setCurrentCommand(Command.DELETE_CV);
-        userState.setCommandState(DeleteCVState.WAITING_FOR_CV_ID);
+        userState.setCommandState(DeleteCVState.WAITING_FOR_CV_DECISION);
         userStateService.setStateForUser(chatId, userState);
-        telegramService.sendMessage(chatId, DeleteCVState.WAITING_FOR_CV_ID.getMessage());
+        telegramService.sendMessage(chatId, DeleteCVState.WAITING_FOR_CV_DECISION.getMessage());
     }
 
     @Override
