@@ -3,6 +3,7 @@ package edu.kmaooad.command.handler;
 import edu.kmaooad.command.Command;
 import edu.kmaooad.domain.dto.cv.UpdateCVDTO;
 import edu.kmaooad.domain.model.CV;
+import edu.kmaooad.domain.model.CompetenceCenter;
 import edu.kmaooad.domain.model.UserRequest;
 import edu.kmaooad.domain.model.UserState;
 import edu.kmaooad.service.CVService;
@@ -188,6 +189,9 @@ public class UpdateCVCommandHandler implements CommandHandler {
       case WAITING_FOR_UPDATE_IS_ACTIVE:
         userState.addInput("isActive", userInput);
         final Map<String, String> inputs = userState.getInputs();
+
+        CompetenceCenter competenceCenter = new CompetenceCenter();
+        List<String> activities = List.of(inputs.get("activities"));
         final CV cv =
             Objects.equals(inputs.get("decision"), "Y")
                 ? cvService.getCVByName(inputs.get("idname")).get()
@@ -204,13 +208,13 @@ public class UpdateCVCommandHandler implements CommandHandler {
                 .activities(
                     Objects.equals(inputs.get("activities"), "skip")
                         ? cv.getActivities()
-                        : List.of(inputs.get("activities")))
+                        : activities)
                 .competences(
                     Objects.equals(inputs.get("competences"), "skip")
                         ? cv.getCompetences()
                         : (inputs.get("competences") != null
                             ? List.of(inputs.get("competences"))
-                            : List.of()))
+                            : competenceCenter.generateCompetencies(activities)))
                 .preferences(
                     Objects.equals(inputs.get("preferences"), "skip")
                         ? cv.getPreferences()

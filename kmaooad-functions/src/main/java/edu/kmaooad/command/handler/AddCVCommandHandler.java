@@ -2,6 +2,8 @@ package edu.kmaooad.command.handler;
 
 import edu.kmaooad.command.Command;
 import edu.kmaooad.domain.dto.cv.AddCVDTO;
+import edu.kmaooad.domain.model.Competence;
+import edu.kmaooad.domain.model.CompetenceCenter;
 import edu.kmaooad.domain.model.UserRequest;
 import edu.kmaooad.domain.model.UserState;
 import edu.kmaooad.service.CVService;
@@ -129,15 +131,18 @@ public class AddCVCommandHandler implements CommandHandler {
       case WAITING_FOR_IS_ACTIVE:
         userState.addInput("isActive", userInput);
         final Map<String, String> inputs = userState.getInputs();
+
+        CompetenceCenter competenceCenter = new CompetenceCenter();
+        List<String> activities = List.of(inputs.get("activities"));
         final AddCVDTO addCVDTO =
             AddCVDTO.builder()
                 .name(inputs.get("name"))
                 .description(inputs.get("description"))
-                .activities(List.of(inputs.get("activities")))
+                .activities(activities)
                 .competences(
                     inputs.get("competences") != null
                         ? List.of(inputs.get("competences"))
-                        : List.of()) // form list automatically
+                        : competenceCenter.generateCompetencies(activities)) // form list automatically
                 .preferences(List.of(inputs.get("preferences"))) // check if not empty!
                 .isActive(Objects.equals(inputs.get("isActive"), "Y"))
                 .manageCompetencies(Objects.equals(inputs.get("manageCompetencies"), "Y"))
