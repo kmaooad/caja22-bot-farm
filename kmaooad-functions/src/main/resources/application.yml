@@ -1,5 +1,3 @@
 spring:
-  data:
-    mongodb:
-      uri: mongodb+srv://user:Password1@cluster0.jtpouhq.mongodb.net/?retryWrites=true&w=majority
-      database: telegram
+  profiles:
+    active: production # should be set to 'development' if testing locally

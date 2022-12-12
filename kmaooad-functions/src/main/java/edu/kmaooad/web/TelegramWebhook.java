@@ -2,33 +2,39 @@ package edu.kmaooad.web;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.kmaooad.domain.AddMessage;
-import edu.kmaooad.domain.AddMessageResult;
-import edu.kmaooad.domain.Message;
-import edu.kmaooad.repository.MessageRepository;
+import edu.kmaooad.command.CommandDispatcher;
+import edu.kmaooad.domain.mapper.UserRequestMapper;
+import edu.kmaooad.domain.model.UserRequest;
+import java.util.Objects;
 import java.util.function.Function;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
 @RequiredArgsConstructor
-public class TelegramWebhook implements Function<AddMessage, AddMessageResult> {
+@Slf4j
+public class TelegramWebhook implements Function<String, Void> {
 
+  private static final Void EMPTY_OBJECT = null;
   private final ObjectMapper objectMapper;
-  private final MessageRepository messageRepository;
+  private final UserRequestMapper userRequestMapper;
+  private final CommandDispatcher commandDispatcher;
 
   @Override
-  public AddMessageResult apply(AddMessage addMessage) {
-    final String messageStr = addMessage.getMessage();
+  public Void apply(String requestBody) {
+    Objects.requireNonNull(requestBody);
+    log.info("Request body: {}", requestBody);
 
     try {
-      final Message message = objectMapper.readValue(messageStr, Message.class);
-
-      messageRepository.insert(message);
-
-      return new AddMessageResult(true, String.valueOf(message.getMessage().getMessageId()), null);
+      final Update update = objectMapper.readValue(requestBody, Update.class);
+      final UserRequest userRequest = userRequestMapper.toUserRequest(update);
+      log.info("Mapped UserRequest: {}", userRequest);
+      commandDispatcher.dispatch(userRequest);
+      return EMPTY_OBJECT;
     } catch (JsonProcessingException ex) {
-      return new AddMessageResult(false, null, "Can't get message_id from request");
+      throw new RuntimeException(ex);
     }
   }
 }

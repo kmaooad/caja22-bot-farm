@@ -25,7 +25,7 @@
         <azure.functions.maven.plugin.version>1.20.0</azure.functions.maven.plugin.version>
         <azure.functions.java.library.version >2.0.1</azure.functions.java.library.version>
         <functionAppName>kmaooad-functions-20220927162321908</functionAppName>
-        <start-class>edu.kmaooad.Application</start-class>
+        <start-class>edu.kmaooad.BotFarmApplication</start-class>
     </properties>
 
     <dependencyManagement>
@@ -47,7 +47,16 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots-spring-boot-starter</artifactId>
+            <version>6.3.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -56,9 +65,14 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.3.Final</version>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.13.4.2</version>
+            <version>2.14.0</version>
         </dependency>
         <dependency>
             <groupId>com.microsoft.azure.functions</groupId>
@@ -66,24 +80,10 @@
             <version>${azure.functions.java.library.version}</version>
         </dependency>
 
+        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Test -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.4.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>2.23.4</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -98,6 +98,18 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.24</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.5.3.Final</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>
@@ -186,7 +198,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>edu.kmaooad.Application</mainClass>
+                    <mainClass>edu.kmaooad.BotFarmApplication</mainClass>
                 </configuration>
             </plugin>
 
@@ -200,6 +212,7 @@
                             <version>1.15.0</version>
                             <reflowLongStrings>true</reflowLongStrings>
                         </googleJavaFormat>
+                        <removeUnusedImports />
                     </java>
                 </configuration>
             </plugin>
