@@ -190,7 +190,7 @@ public class UpdateCVCompetencesCommandHandler implements CommandHandler {
 
     private void initializeUserState(UserRequest userRequest, UserState userState) {
         final Long chatId = userRequest.getChatId();
-        userState.setCurrentCommand(Command.TOGGLE_CV_HIRES);
+        userState.setCurrentCommand(Command.UPDATE_CV_COMPETENCES);
         userState.setCommandState(UpdateCVCompetencesState.WAITING_FOR_UPDATE_COMPETENCES_CV_DECISION);
         userStateService.setStateForUser(chatId, userState);
         telegramService.sendMessage(

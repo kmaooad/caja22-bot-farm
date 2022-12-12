@@ -18,10 +18,13 @@ public class CompetenceCenter {
             switch (activity) {
                 case "Backend":
                     competencies.add("Java");
+                    break;
                 case "iOS":
                     competencies.add("Swift");
-                case "Andriod":
+                    break;
+                case "Android":
                     competencies.add("Kotlin");
+                    break;
             }
         }
 
