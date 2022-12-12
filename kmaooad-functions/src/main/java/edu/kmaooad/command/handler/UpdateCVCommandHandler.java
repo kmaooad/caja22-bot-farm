@@ -47,6 +47,9 @@ public class UpdateCVCommandHandler implements CommandHandler {
         "ADD_CV_WAITING_FOR_PREFERENCES",
         "Please, enter a list of you job preferences (as comma-separated list) or 'skip' to skip"
             + " this field"),
+    WAITING_FOR_UPDATE_IS_HIDDEN(
+            "ADD_CV_WAITING_FOR_IS_HIDDEN",
+            "Hide your CV? (Y or N) or 'skip' to skip this field"),
     WAITING_FOR_UPDATE_IS_ACTIVE(
         "ADD_CV_WAITING_FOR_IS_ACTIVE",
         "Are you open to new opportunities? (Y or N) or 'skip' to skip this field");
@@ -180,9 +183,18 @@ public class UpdateCVCommandHandler implements CommandHandler {
       case WAITING_FOR_UPDATE_PREFERENCES:
         userState.addInput("preferences", userInput);
         userState.setCommandState(
-            UpdateCVCommandHandler.UpdateCVState.WAITING_FOR_UPDATE_IS_ACTIVE);
+            UpdateCVCommandHandler.UpdateCVState.WAITING_FOR_UPDATE_IS_HIDDEN);
         telegramService.sendMessage(
-            chatId, UpdateCVCommandHandler.UpdateCVState.WAITING_FOR_UPDATE_IS_ACTIVE.getMessage());
+            chatId, UpdateCVCommandHandler.UpdateCVState.WAITING_FOR_UPDATE_IS_HIDDEN.getMessage());
+        userStateService.setStateForUser(chatId, userState);
+        break;
+
+      case WAITING_FOR_UPDATE_IS_HIDDEN:
+        userState.addInput("isHidden", userInput);
+        userState.setCommandState(
+                UpdateCVCommandHandler.UpdateCVState.WAITING_FOR_UPDATE_IS_ACTIVE);
+        telegramService.sendMessage(
+                chatId, UpdateCVCommandHandler.UpdateCVState.WAITING_FOR_UPDATE_IS_ACTIVE.getMessage());
         userStateService.setStateForUser(chatId, userState);
         break;
 
@@ -223,6 +235,10 @@ public class UpdateCVCommandHandler implements CommandHandler {
                     Objects.equals(inputs.get("isActive"), "skip")
                         ? cv.getIsActive()
                         : (Objects.equals(inputs.get("isActive"), "Y")))
+                .isHidden(
+                            Objects.equals(inputs.get("isHidden"), "skip")
+                                    ? cv.getIsActive()
+                                    : (Objects.equals(inputs.get("isHidden"), "Y")))
                 .manageCompetencies(
                     Objects.equals(inputs.get("manageCompetencies"), "skip")
                         ? cv.getManageCompetencies()

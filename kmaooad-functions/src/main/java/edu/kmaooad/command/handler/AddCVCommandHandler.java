@@ -36,7 +36,9 @@ public class AddCVCommandHandler implements CommandHandler {
         "ADD_CV_WAITING_FOR_PREFERENCES",
         "Please, enter a list of you job preferences (as comma-separated list)"),
     WAITING_FOR_IS_ACTIVE(
-        "ADD_CV_WAITING_FOR_IS_ACTIVE", "Are you open to new opportunities? (Y or N)");
+        "ADD_CV_WAITING_FOR_IS_ACTIVE", "Are you open to new opportunities? (Y or N)"),
+    WAITING_FOR_IS_HIDDEN(
+            "ADD_CV_WAITING_FOR_IS_HIDDEN", "Hide your cv? (Y or N)");
 
     private final String name;
     private final String message;
@@ -122,9 +124,17 @@ public class AddCVCommandHandler implements CommandHandler {
 
       case WAITING_FOR_PREFERENCES:
         userState.addInput("preferences", userInput);
+        userState.setCommandState(AddCVCommandHandler.AddCVState.WAITING_FOR_IS_HIDDEN);
+        telegramService.sendMessage(
+            chatId, AddCVCommandHandler.AddCVState.WAITING_FOR_IS_HIDDEN.getMessage());
+        userStateService.setStateForUser(chatId, userState);
+        break;
+
+      case WAITING_FOR_IS_HIDDEN:
+        userState.addInput("isHidden", userInput);
         userState.setCommandState(AddCVCommandHandler.AddCVState.WAITING_FOR_IS_ACTIVE);
         telegramService.sendMessage(
-            chatId, AddCVCommandHandler.AddCVState.WAITING_FOR_IS_ACTIVE.getMessage());
+                chatId, AddCVCommandHandler.AddCVState.WAITING_FOR_IS_ACTIVE.getMessage());
         userStateService.setStateForUser(chatId, userState);
         break;
 
@@ -145,6 +155,7 @@ public class AddCVCommandHandler implements CommandHandler {
                         : competenceCenter.generateCompetencies(activities)) // form list automatically
                 .preferences(List.of(inputs.get("preferences"))) // check if not empty!
                 .isActive(Objects.equals(inputs.get("isActive"), "Y"))
+                .isHidden(Objects.equals(inputs.get("isHidden"), "Y"))
                 .manageCompetencies(Objects.equals(inputs.get("manageCompetencies"), "Y"))
                 .build();
         cvService.addCV(addCVDTO);

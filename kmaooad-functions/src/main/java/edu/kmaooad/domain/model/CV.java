@@ -17,6 +17,7 @@ public class CV {
   String name;
   String description;
   Boolean isActive; // Open for hires
+  Boolean isHidden; // hidden/shown
   Boolean manageCompetencies;
   List<String> activities;
   List<String> preferences;
@@ -27,6 +28,7 @@ public class CV {
       String name,
       String description,
       Boolean isActive,
+      Boolean isHidden,
       Boolean manageCompetencies,
       List<String> activities,
       List<String> preferences,
@@ -35,6 +37,7 @@ public class CV {
     this.name = name;
     this.description = description;
     this.isActive = isActive;
+    this.isHidden = isHidden;
     this.manageCompetencies = manageCompetencies;
     this.activities = activities;
     this.preferences = preferences;

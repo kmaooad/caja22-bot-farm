@@ -108,6 +108,7 @@ public class ToggleOpenCVCommandHandler implements CommandHandler {
                   .competences(cv.getCompetences())
                   .preferences(cv.getPreferences())
                   .isActive(!cv.getIsActive())
+                  .isHidden(cv.getIsHidden())
                   .manageCompetencies(cv.getManageCompetencies())
                   .build();
           cvService.updateCV(updateCVDTO);

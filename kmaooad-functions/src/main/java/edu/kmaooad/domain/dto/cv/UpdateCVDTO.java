@@ -14,6 +14,7 @@ public class UpdateCVDTO {
   String name;
   String description;
   Boolean isActive;
+  Boolean isHidden;
   Boolean manageCompetencies;
   List<String> activities;
   List<String> preferences;
