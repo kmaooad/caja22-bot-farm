@@ -7,6 +7,12 @@ public enum Command {
   ADD_JOB("/addjob"),
   DELETE_JOB("/deletejob"),
   CANCEL("/cancel"),
+  ADD_CV("/addcv"),
+  UPDATE_CV("/updatecv"),
+  DELETE_CV("/deletecv"),
+  GET_ALL_CV("/getallcv"),
+  TOGGLE_CV_HIRES("/toggleOpenCV"),
+  UPDATE_CV_COMPETENCES("/updateCVcompetences"),
   UNKNOWN_COMMAND("");
 
   private final String value;
