@@ -14,4 +14,5 @@ public class AddJobDTO {
   String description;
   List<String> activities;
   List<String> competences;
+  String depId;
 }

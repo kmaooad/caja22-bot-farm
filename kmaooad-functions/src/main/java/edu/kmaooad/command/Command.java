@@ -13,6 +13,7 @@ public enum Command {
   GET_ALL_CV("/getallcv"),
   TOGGLE_CV_HIRES("/toggleOpenCV"),
   UPDATE_CV_COMPETENCES("/updateCVcompetences"),
+  UPDATE_DEPARTMENT_STATUS("/updateDepartmentStatus"),
   UNKNOWN_COMMAND("");
 
   private final String value;

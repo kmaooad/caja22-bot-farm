@@ -1,6 +1,7 @@
 package edu.kmaooad.service;
 
 import edu.kmaooad.domain.dto.job.AddJobDTO;
+import edu.kmaooad.domain.dto.job.UpdateJobDTO;
 import edu.kmaooad.domain.mapper.JobMapper;
 import edu.kmaooad.domain.model.Job;
 import edu.kmaooad.repository.JobRepository;
@@ -28,8 +29,14 @@ public class JobServiceImpl implements JobService {
 
   @Override
   public Job addJob(AddJobDTO addJobDTO) {
-
     final Job job = jobMapper.toJob(addJobDTO);
+    jobRepository.save(job);
+    return job;
+  }
+
+  @Override
+  public Job updateJob(UpdateJobDTO updateJobDTO) {
+    final Job job = jobMapper.toJob(updateJobDTO);
     jobRepository.save(job);
     return job;
   }
