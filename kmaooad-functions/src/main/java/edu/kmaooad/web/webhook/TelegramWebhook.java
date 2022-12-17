@@ -1,11 +1,11 @@
-package edu.kmaooad.web;
+package edu.kmaooad.web.webhook;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.kmaooad.command.dispatch.CommandDispatcher;
 import edu.kmaooad.domain.mapper.UserRequestMapper;
-import edu.kmaooad.domain.model.UserRequest;
 import edu.kmaooad.exception.InvalidRequestBodyException;
+import edu.kmaooad.web.request.UserRequest;
 import java.util.Optional;
 import java.util.function.Function;
 import lombok.RequiredArgsConstructor;
