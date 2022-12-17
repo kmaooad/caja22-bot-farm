@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.kmaooad.command.CommandDispatcher;
+import edu.kmaooad.command.dispatch.CommandDispatcher;
 import edu.kmaooad.domain.mapper.UserRequestMapper;
 import edu.kmaooad.domain.model.UserRequest;
 import org.junit.jupiter.api.Test;

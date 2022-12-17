@@ -1,4 +1,4 @@
-package edu.kmaooad.command;
+package edu.kmaooad.command.dispatch;
 
 import java.util.stream.Stream;
 

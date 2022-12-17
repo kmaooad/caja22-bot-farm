@@ -7,9 +7,9 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface DepartmentMapper {
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "name", source = "name")
-    @Mapping(target = "isHiring", source = "isHiring")
-    @Mapping(target = "orgId", source = "orgId")
-    Department toDepartment(UpdateDepartmentDTO updateDepartmentDTO);
+  @Mapping(target = "id", source = "id")
+  @Mapping(target = "name", source = "name")
+  @Mapping(target = "isHiring", source = "isHiring")
+  @Mapping(target = "orgId", source = "orgId")
+  Department toDepartment(UpdateDepartmentDTO updateDepartmentDTO);
 }

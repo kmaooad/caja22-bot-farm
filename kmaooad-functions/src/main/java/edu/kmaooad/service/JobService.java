@@ -9,9 +9,11 @@ import java.util.Optional;
 public interface JobService {
 
   List<Job> getAllJobs();
+
   Optional<Job> getJobById(String jobId);
 
   Job addJob(AddJobDTO addJobDTO);
+
   Job updateJob(UpdateJobDTO updateJobDTO);
 
   boolean deleteJob(String jobId);

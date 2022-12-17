@@ -11,6 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Jacksonized
 @Document("organizations")
 public class Organization {
-    @Id String id;
-    String name;
+  @Id String id;
+  String name;
 }

@@ -1,4 +1,4 @@
-package edu.kmaooad.command;
+package edu.kmaooad.command.dispatch;
 
 import edu.kmaooad.command.handler.CommandHandler;
 import edu.kmaooad.domain.model.UserRequest;

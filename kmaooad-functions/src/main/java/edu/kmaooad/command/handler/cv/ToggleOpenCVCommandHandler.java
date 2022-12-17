@@ -1,6 +1,8 @@
-package edu.kmaooad.command.handler;
+package edu.kmaooad.command.handler.cv;
 
-import edu.kmaooad.command.Command;
+import edu.kmaooad.command.dispatch.Command;
+import edu.kmaooad.command.handler.CommandHandler;
+import edu.kmaooad.command.handler.CommandState;
 import edu.kmaooad.domain.dto.cv.UpdateCVDTO;
 import edu.kmaooad.domain.model.CV;
 import edu.kmaooad.domain.model.UserRequest;

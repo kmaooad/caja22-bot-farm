@@ -1,8 +1,9 @@
-package edu.kmaooad.command.handler;
+package edu.kmaooad.command.handler.cv;
 
-import edu.kmaooad.command.Command;
+import edu.kmaooad.command.dispatch.Command;
+import edu.kmaooad.command.handler.CommandHandler;
+import edu.kmaooad.command.handler.CommandState;
 import edu.kmaooad.domain.dto.cv.AddCVDTO;
-import edu.kmaooad.domain.model.Competence;
 import edu.kmaooad.domain.model.CompetenceCenter;
 import edu.kmaooad.domain.model.UserRequest;
 import edu.kmaooad.domain.model.UserState;
@@ -37,8 +38,7 @@ public class AddCVCommandHandler implements CommandHandler {
         "Please, enter a list of you job preferences (as comma-separated list)"),
     WAITING_FOR_IS_ACTIVE(
         "ADD_CV_WAITING_FOR_IS_ACTIVE", "Are you open to new opportunities? (Y or N)"),
-    WAITING_FOR_IS_HIDDEN(
-            "ADD_CV_WAITING_FOR_IS_HIDDEN", "Hide your cv? (Y or N)");
+    WAITING_FOR_IS_HIDDEN("ADD_CV_WAITING_FOR_IS_HIDDEN", "Hide your cv? (Y or N)");
 
     private final String name;
     private final String message;
@@ -134,7 +134,7 @@ public class AddCVCommandHandler implements CommandHandler {
         userState.addInput("isHidden", userInput);
         userState.setCommandState(AddCVCommandHandler.AddCVState.WAITING_FOR_IS_ACTIVE);
         telegramService.sendMessage(
-                chatId, AddCVCommandHandler.AddCVState.WAITING_FOR_IS_ACTIVE.getMessage());
+            chatId, AddCVCommandHandler.AddCVState.WAITING_FOR_IS_ACTIVE.getMessage());
         userStateService.setStateForUser(chatId, userState);
         break;
 
@@ -152,7 +152,8 @@ public class AddCVCommandHandler implements CommandHandler {
                 .competences(
                     inputs.get("competences") != null
                         ? List.of(inputs.get("competences"))
-                        : competenceCenter.generateCompetencies(activities)) // form list automatically
+                        : competenceCenter.generateCompetencies(
+                            activities)) // form list automatically
                 .preferences(List.of(inputs.get("preferences"))) // check if not empty!
                 .isActive(Objects.equals(inputs.get("isActive"), "Y"))
                 .isHidden(Objects.equals(inputs.get("isHidden"), "Y"))
