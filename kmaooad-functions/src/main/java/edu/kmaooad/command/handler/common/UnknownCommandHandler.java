@@ -2,8 +2,8 @@ package edu.kmaooad.command.handler.common;
 
 import edu.kmaooad.command.dispatch.Command;
 import edu.kmaooad.command.handler.CommandHandler;
-import edu.kmaooad.domain.model.UserRequest;
 import edu.kmaooad.service.TelegramService;
+import edu.kmaooad.web.request.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
