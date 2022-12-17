@@ -99,6 +99,7 @@ public class UpdateDepartmentStatusCommandHandler implements CommandHandler {
         if (Objects.equals(userInput, "+")) {
           updateDepartmentDTO =
               UpdateDepartmentDTO.builder()
+                  .id(dep.getId())
                   .name(dep.getName())
                   .isHiring(true)
                   .orgId(dep.getOrgId())
@@ -114,6 +115,7 @@ public class UpdateDepartmentStatusCommandHandler implements CommandHandler {
           // Stop hiring
           updateDepartmentDTO =
               UpdateDepartmentDTO.builder()
+                  .id(dep.getId())
                   .name(dep.getName())
                   .isHiring(false)
                   .orgId(dep.getOrgId())
@@ -125,6 +127,7 @@ public class UpdateDepartmentStatusCommandHandler implements CommandHandler {
           for (Job job : jobs) {
             final UpdateJobDTO updateJobDTO =
                 UpdateJobDTO.builder()
+                    .id(job.getId())
                     .title(job.getTitle())
                     .description(job.getDescription())
                     .isActive(false)

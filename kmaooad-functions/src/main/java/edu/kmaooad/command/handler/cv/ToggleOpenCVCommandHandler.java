@@ -104,6 +104,7 @@ public class ToggleOpenCVCommandHandler implements CommandHandler {
           final CV cv = cvService.getCVByName(userInput).get();
           final UpdateCVDTO updateCVDTO =
               UpdateCVDTO.builder()
+                  .id(cv.getId())
                   .name(cv.getName())
                   .description(cv.getDescription())
                   .activities(cv.getActivities())

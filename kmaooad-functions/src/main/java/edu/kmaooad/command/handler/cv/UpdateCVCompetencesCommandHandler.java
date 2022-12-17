@@ -157,6 +157,7 @@ public class UpdateCVCompetencesCommandHandler implements CommandHandler {
                 .collect(Collectors.toList());
         updateCVDTO =
             UpdateCVDTO.builder()
+                .id(cv.getId())
                 .name(cv.getName())
                 .description(cv.getDescription())
                 .activities(cv.getActivities())
@@ -183,6 +184,7 @@ public class UpdateCVCompetencesCommandHandler implements CommandHandler {
         cvcompetences.removeAll(List.of(inputs.get("remove")));
         updateCVDTO =
             UpdateCVDTO.builder()
+                .id(cv.getId())
                 .name(cv.getName())
                 .description(cv.getDescription())
                 .activities(cv.getActivities())
