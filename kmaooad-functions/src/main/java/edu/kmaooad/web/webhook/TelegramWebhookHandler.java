@@ -11,7 +11,7 @@ import com.microsoft.azure.functions.annotation.HttpTrigger;
 import java.util.Optional;
 import org.springframework.cloud.function.adapter.azure.FunctionInvoker;
 
-public class TelegramWebhookHandler extends FunctionInvoker<String, Void> {
+public class TelegramWebhookHandler extends FunctionInvoker<Optional<String>, Void> {
 
   @FunctionName("TelegramWebhook")
   public HttpResponseMessage run(
@@ -22,8 +22,7 @@ public class TelegramWebhookHandler extends FunctionInvoker<String, Void> {
           HttpRequestMessage<Optional<String>> request,
       final ExecutionContext context) {
     try {
-      final String requestBody = request.getBody().orElse(null);
-      this.handleRequest(requestBody, context);
+      this.handleRequest(request.getBody(), context);
       return request.createResponseBuilder(HttpStatus.OK).build();
     } catch (Exception ex) {
       final String responseBody = String.format("{\"message\":\"%s\"}", ex.getMessage());
