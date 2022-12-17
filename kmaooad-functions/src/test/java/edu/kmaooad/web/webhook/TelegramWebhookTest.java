@@ -1,4 +1,4 @@
-package edu.kmaooad.web;
+package edu.kmaooad.web.webhook;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,7 +10,6 @@ import edu.kmaooad.command.dispatch.CommandDispatcher;
 import edu.kmaooad.domain.mapper.UserRequestMapper;
 import edu.kmaooad.exception.InvalidRequestBodyException;
 import edu.kmaooad.web.request.UserRequest;
-import edu.kmaooad.web.webhook.TelegramWebhook;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +39,7 @@ public class TelegramWebhookTest {
 
     assertDoesNotThrow(() -> telegramWebhook.apply(Optional.of(testBody)));
 
-    verify(objectMapper, times(1)).readValue(testBody, Update.class);
+    verify(objectMapper, times(1)).readValue(eq(testBody), eq(Update.class));
     verify(userRequestMapper, times(1)).toUserRequest(eq(new Update()));
     verify(commandDispatcher, times(1)).dispatch(eq(UserRequest.builder().chatId(1L).build()));
   }
@@ -49,7 +48,7 @@ public class TelegramWebhookTest {
   public void shouldThrowExceptionIfRequestBodyIsNull() throws JsonProcessingException {
     assertThrows(InvalidRequestBodyException.class, () -> telegramWebhook.apply(Optional.empty()));
 
-    verify(objectMapper, never()).readValue(anyString(), Update.class);
+    verify(objectMapper, never()).readValue(anyString(), eq(Update.class));
     verify(userRequestMapper, never()).toUserRequest(any(Update.class));
     verify(commandDispatcher, never()).dispatch(any(UserRequest.class));
   }
@@ -63,7 +62,7 @@ public class TelegramWebhookTest {
     assertThrows(
         InvalidRequestBodyException.class, () -> telegramWebhook.apply(Optional.of(testBody)));
 
-    verify(objectMapper, times(1)).readValue(eq(testBody), Update.class);
+    verify(objectMapper, times(1)).readValue(eq(testBody), eq(Update.class));
     verify(userRequestMapper, never()).toUserRequest(any(Update.class));
     verify(commandDispatcher, never()).dispatch(any(UserRequest.class));
   }
