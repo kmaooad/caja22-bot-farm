@@ -24,8 +24,7 @@ public class DepartmentServiceImpl implements DepartmentService {
   @Override
   public Department updateDepStatus(UpdateDepartmentDTO updateDepartmentDTO) {
     final Department dep = depMapper.toDepartment(updateDepartmentDTO);
-    depRepository.save(dep);
-    return dep;
+    return depRepository.save(dep);
   }
 
   @Override
