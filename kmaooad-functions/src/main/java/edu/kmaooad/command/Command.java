@@ -11,7 +11,8 @@ public enum Command {
   UPDATE_CV("/updatecv"),
   DELETE_CV("/deletecv"),
   GET_ALL_CV("/getallcv"),
-  TOGGLE_CV_HIRES("/toggleOpenCV"),
+  TOGGLE_CV_HIRES("/togglecvactive"),
+  TOGGLE_CV_OPEN("/togglecvopen"),
   UPDATE_CV_COMPETENCES("/updateCVcompetences"),
   UPDATE_DEPARTMENT_STATUS("/updateDepartmentStatus"),
   UNKNOWN_COMMAND("");
