@@ -1,8 +1,6 @@
-package edu.kmaooad.command.handler.cv;
+package edu.kmaooad.command.handler;
 
 import edu.kmaooad.command.dispatch.Command;
-import edu.kmaooad.command.handler.CommandHandler;
-import edu.kmaooad.command.handler.CommandState;
 import edu.kmaooad.domain.dto.cv.UpdateCVDTO;
 import edu.kmaooad.domain.model.CV;
 import edu.kmaooad.domain.model.UserState;
@@ -16,21 +14,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ToggleOpenCVCommandHandler implements CommandHandler {
+public class ToggleActiveCVCommandHandler implements CommandHandler {
 
-  private enum ToggleOpenCVState implements CommandState {
+  private enum ToggleHireCVState implements CommandState {
     WAITING_FOR_TOGGLE_CV_DECISION(
-        "TOGGLE_CV_WAITING_FOR_DECISION",
-        "You want to toggle visibility status for your CV? (Y or N)"),
+        "TOGGLE_CV_WAITING_FOR_DECISION", "You want to toggle hire status for your CV? (Y or N)"),
     WAITING_FOR_TOGGLE_CV_ID(
         "TOGGLE_CV_WAITING_FOR_ID",
-        "Please, enter an id of the cv which you want to toggle visibility status"),
+        "Please, enter an id of the cv which you want to toggle hire status"),
     WAITING_FOR_TOGGLE_CV_NAME("TOGGLE_CV_WAITING_FOR_NAME", "Please, enter your full name");
 
     private final String name;
     private final String message;
 
-    ToggleOpenCVState(String name, String message) {
+    ToggleHireCVState(String name, String message) {
       this.name = name;
       this.message = message;
     }
@@ -60,17 +57,17 @@ public class ToggleOpenCVCommandHandler implements CommandHandler {
   }
 
   private void performStateAction(UserRequest userRequest, UserState userState) {
-    final ToggleOpenCVState currentState = (ToggleOpenCVState) userState.getCommandState();
+    final ToggleHireCVState currentState = (ToggleHireCVState) userState.getCommandState();
     final String userInput = userRequest.getText();
     final Long chatId = userRequest.getChatId();
 
     switch (currentState) {
       case WAITING_FOR_TOGGLE_CV_DECISION:
         userState.addInput("decision", userInput);
-        ToggleOpenCVCommandHandler.ToggleOpenCVState nextState =
+        ToggleActiveCVCommandHandler.ToggleHireCVState nextState =
             Objects.equals(userInput, "Y")
-                ? ToggleOpenCVState.WAITING_FOR_TOGGLE_CV_NAME
-                : ToggleOpenCVState.WAITING_FOR_TOGGLE_CV_ID;
+                ? ToggleHireCVState.WAITING_FOR_TOGGLE_CV_NAME
+                : ToggleHireCVState.WAITING_FOR_TOGGLE_CV_ID;
         userState.setCommandState(nextState);
         telegramService.sendMessage(chatId, nextState.getMessage());
         userStateService.setStateForUser(chatId, userState);
@@ -87,8 +84,8 @@ public class ToggleOpenCVCommandHandler implements CommandHandler {
                   .activities(cv.getActivities())
                   .competences(cv.getCompetences())
                   .preferences(cv.getPreferences())
-                  .isActive(cv.getIsActive())
-                  .isHidden(!cv.getIsHidden())
+                  .isActive(!cv.getIsActive())
+                  .isHidden(cv.getIsHidden())
                   .manageCompetencies(cv.getManageCompetencies())
                   .build();
           cvService.updateCV(updateCVDTO);
@@ -106,14 +103,13 @@ public class ToggleOpenCVCommandHandler implements CommandHandler {
           final CV cv = cvService.getCVByName(userInput).get();
           final UpdateCVDTO updateCVDTO =
               UpdateCVDTO.builder()
-                  .id(cv.getId())
                   .name(cv.getName())
                   .description(cv.getDescription())
                   .activities(cv.getActivities())
                   .competences(cv.getCompetences())
                   .preferences(cv.getPreferences())
-                  .isActive(cv.getIsActive())
-                  .isHidden(!cv.getIsHidden())
+                  .isActive(!cv.getIsActive())
+                  .isHidden(cv.getIsHidden())
                   .manageCompetencies(cv.getManageCompetencies())
                   .build();
           cvService.updateCV(updateCVDTO);
@@ -130,15 +126,15 @@ public class ToggleOpenCVCommandHandler implements CommandHandler {
 
   private void initializeUserState(UserRequest userRequest, UserState userState) {
     final Long chatId = userRequest.getChatId();
-    userState.setCurrentCommand(Command.TOGGLE_CV_OPEN);
-    userState.setCommandState(ToggleOpenCVState.WAITING_FOR_TOGGLE_CV_DECISION);
+    userState.setCurrentCommand(Command.TOGGLE_CV_HIRES);
+    userState.setCommandState(ToggleHireCVState.WAITING_FOR_TOGGLE_CV_DECISION);
     userStateService.setStateForUser(chatId, userState);
     telegramService.sendMessage(
-        chatId, ToggleOpenCVState.WAITING_FOR_TOGGLE_CV_DECISION.getMessage());
+        chatId, ToggleHireCVState.WAITING_FOR_TOGGLE_CV_DECISION.getMessage());
   }
 
   @Override
   public boolean canHandle(Command command) {
-    return command.equals(Command.TOGGLE_CV_OPEN);
+    return command.equals(Command.TOGGLE_CV_HIRES);
   }
 }
