@@ -8,8 +8,8 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 public class UpdateDepartmentDTO {
-    String id;
-    String name;
-    Boolean isHiring;
-    String orgId;
+  String id;
+  String name;
+  Boolean isHiring;
+  String orgId;
 }

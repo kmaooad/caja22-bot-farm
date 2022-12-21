@@ -1,6 +1,6 @@
 package edu.kmaooad.domain.mapper;
 
-import edu.kmaooad.domain.model.UserRequest;
+import edu.kmaooad.web.request.UserRequest;
 import java.util.Objects;
 import java.util.Optional;
 import org.mapstruct.Mapper;
@@ -13,7 +13,10 @@ import org.telegram.telegrambots.meta.api.objects.Update;
     imports = {Objects.class, Optional.class, Message.class})
 public interface UserRequestMapper {
 
-  @Mapping(target = "chatId", expression = "java(update.getMessage().getChatId())")
+  @Mapping(
+      target = "chatId",
+      expression =
+          "java(Optional.ofNullable(update.getMessage()).map(Message::getChatId).orElse(null))")
   @Mapping(
       target = "text",
       expression =

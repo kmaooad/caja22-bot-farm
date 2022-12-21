@@ -1,9 +1,9 @@
-package edu.kmaooad.command;
+package edu.kmaooad.command.dispatch;
 
 import edu.kmaooad.command.handler.CommandHandler;
-import edu.kmaooad.domain.model.UserRequest;
 import edu.kmaooad.domain.model.UserState;
 import edu.kmaooad.service.UserStateService;
+import edu.kmaooad.web.request.UserRequest;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

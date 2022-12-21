@@ -1,4 +1,4 @@
-package edu.kmaooad.domain.model;
+package edu.kmaooad.web.request;
 
 import lombok.Builder;
 import lombok.Value;

@@ -1,12 +1,14 @@
-package edu.kmaooad.command.handler;
+package edu.kmaooad.command.handler.job;
 
-import edu.kmaooad.command.Command;
+import edu.kmaooad.command.dispatch.Command;
+import edu.kmaooad.command.handler.CommandHandler;
+import edu.kmaooad.command.handler.CommandState;
 import edu.kmaooad.domain.dto.job.AddJobDTO;
-import edu.kmaooad.domain.model.UserRequest;
 import edu.kmaooad.domain.model.UserState;
 import edu.kmaooad.service.JobService;
 import edu.kmaooad.service.TelegramService;
 import edu.kmaooad.service.UserStateService;
+import edu.kmaooad.web.request.UserRequest;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package edu.kmaooad.command.handler;
 
-import edu.kmaooad.command.Command;
-import edu.kmaooad.domain.model.UserRequest;
+import edu.kmaooad.command.dispatch.Command;
+import edu.kmaooad.web.request.UserRequest;
 
 public interface CommandHandler {
 

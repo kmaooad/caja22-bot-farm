@@ -1,19 +1,19 @@
-package edu.kmaooad.command;
+package edu.kmaooad.command.dispatch;
 
 import java.util.stream.Stream;
 
 public enum Command {
-  GET_JOBS("/getjobs"),
-  ADD_JOB("/addjob"),
-  DELETE_JOB("/deletejob"),
+  GET_JOBS("/getAllJobs"),
+  ADD_JOB("/addJob"),
+  DELETE_JOB("/deleteJob"),
   CANCEL("/cancel"),
-  ADD_CV("/addcv"),
-  UPDATE_CV("/updatecv"),
-  DELETE_CV("/deletecv"),
-  GET_ALL_CV("/getallcv"),
-  TOGGLE_CV_HIRES("/togglecvactive"),
-  TOGGLE_CV_OPEN("/togglecvopen"),
-  UPDATE_CV_COMPETENCES("/updateCVcompetences"),
+  ADD_CV("/addCV"),
+  UPDATE_CV("/updateCV"),
+  DELETE_CV("/deleteCV"),
+  GET_ALL_CV("/getAllCV"),
+  TOGGLE_CV_HIRES("/toggleCVHires"),
+  TOGGLE_CV_OPEN("/toggleCVOpen"),
+  UPDATE_CV_COMPETENCES("/updateCVCompetences"),
   UPDATE_DEPARTMENT_STATUS("/updateDepartmentStatus"),
   UNKNOWN_COMMAND("");
 

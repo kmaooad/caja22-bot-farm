@@ -1,6 +1,6 @@
 package edu.kmaooad.domain.model;
 
-import edu.kmaooad.command.Command;
+import edu.kmaooad.command.dispatch.Command;
 import edu.kmaooad.command.handler.CommandState;
 import java.util.HashMap;
 import java.util.Map;

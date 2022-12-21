@@ -30,20 +30,18 @@ public class JobServiceImpl implements JobService {
   @Override
   public Job addJob(AddJobDTO addJobDTO) {
     final Job job = jobMapper.toJob(addJobDTO);
-    jobRepository.save(job);
-    return job;
+    return jobRepository.save(job);
   }
 
   @Override
   public Job updateJob(UpdateJobDTO updateJobDTO) {
     final Job job = jobMapper.toJob(updateJobDTO);
-    jobRepository.save(job);
-    return job;
+    return jobRepository.save(job);
   }
 
   @Override
   public boolean deleteJob(String jobId) {
     jobRepository.deleteById(jobId);
-    return jobRepository.existsById(jobId);
+    return !jobRepository.existsById(jobId);
   }
 }
