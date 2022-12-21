@@ -30,21 +30,19 @@ public class CVServiceImpl implements CVService {
   @Override
   public CV addCV(AddCVDTO addCVDTO) {
     final CV cv = cvMapper.toCV(addCVDTO);
-    cvRepository.save(cv);
-    return cv;
+    return cvRepository.save(cv);
   }
 
   @Override
   public CV updateCV(UpdateCVDTO updateCVDTO) {
     final CV cv = cvMapper.toCV(updateCVDTO);
-    cvRepository.save(cv);
-    return cv;
+    return cvRepository.save(cv);
   }
 
   @Override
   public boolean deleteCV(String cvID) {
     cvRepository.deleteById(cvID);
-    return cvRepository.existsById(cvID);
+    return !cvRepository.existsById(cvID);
   }
 
   @Override
