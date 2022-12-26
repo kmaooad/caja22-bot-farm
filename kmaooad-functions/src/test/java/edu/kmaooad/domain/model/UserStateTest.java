@@ -78,6 +78,22 @@ public class UserStateTest {
     Assertions.assertNull(userState.getCommandState());
   }
 
+  @Test
+  public void shouldBeEqualStatesIfIdsAreEqual() {
+    UserState state1 = UserState.newEmptyState(1L);
+    UserState state2 = UserState.newEmptyState(1L);
+
+    Assertions.assertEquals(state1, state2);
+  }
+
+  @Test
+  public void shouldNotBeEqualStatesIfComparedObjectsIsOfOtherClass() {
+    UserState state1 = UserState.newEmptyState(1L);
+    Object random = new Object();
+
+    Assertions.assertNotEquals(state1, random);
+  }
+
   private static class TestCommandState implements CommandState {
 
     @Override
