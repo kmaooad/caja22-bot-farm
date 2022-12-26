@@ -16,6 +16,7 @@ import edu.kmaooad.web.request.UserRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UpdateDepartmentStatusCommandHandler implements CommandHandler {
 
-  private enum UpdateDepartmentStatusState implements CommandState {
+  public enum UpdateDepartmentStatusState implements CommandState {
     WAITING_FOR_UPDATE_STATUS_DEPARTMENT_ID(
         "UPDATE_STATUS_DEPARTMENT_WAITING_FOR_ID",
         "Please, enter the department id of which you want to update hiring status"),
@@ -122,8 +123,10 @@ public class UpdateDepartmentStatusCommandHandler implements CommandHandler {
                   .build();
           depService.updateDepStatus(updateDepartmentDTO);
           // Deactivate all jobs
-          List<Job> jobs = jobService.getAllJobs();
-          jobs.removeIf(job -> !job.getDepId().equals(dep.getId()));
+          List<Job> jobs =
+              jobService.getAllJobs().stream()
+                  .filter(job -> job.getDepId().equals(dep.getId()))
+                  .collect(Collectors.toList());
           for (Job job : jobs) {
             final UpdateJobDTO updateJobDTO =
                 UpdateJobDTO.builder()
