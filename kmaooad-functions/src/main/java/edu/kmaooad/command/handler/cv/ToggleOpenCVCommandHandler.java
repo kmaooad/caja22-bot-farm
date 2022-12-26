@@ -11,6 +11,7 @@ import edu.kmaooad.service.TelegramService;
 import edu.kmaooad.service.UserStateService;
 import edu.kmaooad.web.request.UserRequest;
 import java.util.Objects;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ToggleOpenCVCommandHandler implements CommandHandler {
 
-  private enum ToggleOpenCVState implements CommandState {
+  public enum ToggleOpenCVState implements CommandState {
     WAITING_FOR_TOGGLE_CV_DECISION(
         "TOGGLE_CV_WAITING_FOR_DECISION",
         "You want to toggle visibility status for your CV? (Y or N)"),
@@ -102,8 +103,9 @@ public class ToggleOpenCVCommandHandler implements CommandHandler {
         break;
 
       case WAITING_FOR_TOGGLE_CV_NAME:
-        if (cvService.getCVByName(userInput).isPresent()) {
-          final CV cv = cvService.getCVByName(userInput).get();
+        Optional<CV> cvOpt = cvService.getCVByName(userInput);
+        if (cvOpt.isPresent()) {
+          final CV cv = cvOpt.get();
           final UpdateCVDTO updateCVDTO =
               UpdateCVDTO.builder()
                   .id(cv.getId())

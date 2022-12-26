@@ -3,12 +3,14 @@ package edu.kmaooad.command.handler.cv;
 import edu.kmaooad.command.dispatch.Command;
 import edu.kmaooad.command.handler.CommandHandler;
 import edu.kmaooad.command.handler.CommandState;
+import edu.kmaooad.domain.model.CV;
 import edu.kmaooad.domain.model.UserState;
 import edu.kmaooad.service.CVService;
 import edu.kmaooad.service.TelegramService;
 import edu.kmaooad.service.UserStateService;
 import edu.kmaooad.web.request.UserRequest;
 import java.util.Objects;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DeleteCVCommandHandler implements CommandHandler {
 
-  private enum DeleteCVState implements CommandState {
+  public enum DeleteCVState implements CommandState {
     WAITING_FOR_CV_DECISION(
         "DELETE_CV_WAITING_FOR_DECISION", "You want to delete your CV? (Y or N)"),
     WAITING_FOR_CV_ID(
@@ -84,8 +86,9 @@ public class DeleteCVCommandHandler implements CommandHandler {
         break;
 
       case WAITING_FOR_CV_NAME:
-        if (cvService.getCVByName(userInput).isPresent()) {
-          cvService.deleteCV(userInput);
+        Optional<CV> cv = cvService.getCVByName(userInput);
+        if (cv.isPresent()) {
+          cvService.deleteCV(cv.get().getId());
           userState.clear();
           userStateService.setStateForUser(chatId, userState);
           telegramService.sendMessage(chatId, "Successfully deleted CV!");
