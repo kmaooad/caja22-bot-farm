@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AddJobCommandHandler implements CommandHandler {
 
-  private enum AddJobState implements CommandState {
+  public enum AddJobState implements CommandState {
     WAITING_FOR_TITLE("ADD_JOB_WAITING_FOR_TITLE", "Please, enter a job title (must not be empty)"),
     WAITING_FOR_DESCRIPTION(
         "ADD_JOB_WAITING_FOR_DESCRIPTION", "Please, enter a job description (can be empty)"),
@@ -27,7 +27,8 @@ public class AddJobCommandHandler implements CommandHandler {
         "Please, enter a list of job activities (as comma-separated list)"),
     WAITING_FOR_COMPETENCES(
         "ADD_JOB_WAITING_FOR_COMPETENCES",
-        "Please, enter a list of job competences (as comma-separated list)");
+        "Please, enter a list of job competences (as comma-separated list)"),
+    WAITING_FOR_DEPARTMENT("ADD_JOB_WAITING_FOR_DEPARTMENT", "Please, enter a department id ");
 
     private final String name;
     private final String message;
@@ -90,6 +91,13 @@ public class AddJobCommandHandler implements CommandHandler {
 
       case WAITING_FOR_COMPETENCES:
         userState.addInput("competences", userInput);
+        userState.setCommandState(AddJobState.WAITING_FOR_DEPARTMENT);
+        telegramService.sendMessage(chatId, AddJobState.WAITING_FOR_DEPARTMENT.getMessage());
+        userStateService.setStateForUser(chatId, userState);
+        break;
+
+      case WAITING_FOR_DEPARTMENT:
+        userState.addInput("departmentId", userInput);
         final Map<String, String> inputs = userState.getInputs();
         final AddJobDTO addJobDTO =
             AddJobDTO.builder()
@@ -97,8 +105,10 @@ public class AddJobCommandHandler implements CommandHandler {
                 .description(inputs.get("description"))
                 .activities(List.of(inputs.get("activities")))
                 .competences(List.of(inputs.get("competences")))
+                .depId(inputs.get("departmentId"))
                 .build();
         jobService.addJob(addJobDTO);
+
         telegramService.sendMessage(chatId, "Successfully added new job!");
         userState.clear();
         userStateService.setStateForUser(chatId, userState);
