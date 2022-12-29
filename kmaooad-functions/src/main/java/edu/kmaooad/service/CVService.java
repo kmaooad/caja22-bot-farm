@@ -16,7 +16,7 @@ public interface CVService {
 
   CV updateCV(UpdateCVDTO updateCVDTO);
 
-  boolean deleteCV(String jobId);
+  boolean deleteCV(String cvId);
 
   List<CV> getAllCVs();
 }

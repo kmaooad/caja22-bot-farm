@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UpdateCVCommandHandler implements CommandHandler {
 
-  private enum UpdateCVState implements CommandState {
+  public enum UpdateCVState implements CommandState {
     WAITING_FOR_UPDATE_CV_DECISION(
         "TOGGLE_CV_WAITING_FOR_DECISION", "You want to update your CV? (Y or N)"),
     WAITING_FOR_UPDATE_CV_ID(
@@ -249,8 +249,6 @@ public class UpdateCVCommandHandler implements CommandHandler {
         userState.clear();
         userStateService.setStateForUser(chatId, userState);
         telegramService.sendMessage(chatId, "Successfully updated CV!");
-        userState.clear();
-        userStateService.setStateForUser(chatId, userState);
         break;
     }
   }

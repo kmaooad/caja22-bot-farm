@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DeleteJobCommandHandler implements CommandHandler {
 
-  private enum DeleteJobState implements CommandState {
+  public enum DeleteJobState implements CommandState {
     WAITING_FOR_JOB_ID(
         "DELETE_JOB_WAITING_FOR_ID", "Please, enter an id of job which you want to delete");
 

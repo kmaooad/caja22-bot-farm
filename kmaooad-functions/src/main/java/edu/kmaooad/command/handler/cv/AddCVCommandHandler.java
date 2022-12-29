@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AddCVCommandHandler implements CommandHandler {
 
-  private enum AddCVState implements CommandState {
+  public enum AddCVState implements CommandState {
     WAITING_FOR_NAME("ADD_CV_WAITING_FOR_NAME", "Please, enter you full name (must not be empty)"),
     WAITING_FOR_DESCRIPTION(
         "ADD_CV_WAITING_FOR_DESCRIPTION", "Please, enter short summary (can be empty)"),

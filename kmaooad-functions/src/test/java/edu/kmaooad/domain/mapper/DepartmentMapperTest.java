@@ -8,26 +8,25 @@ import org.junit.jupiter.api.Test;
 
 public class DepartmentMapperTest {
 
-    private DepartmentMapper depMapper;
+  private DepartmentMapper depMapper;
 
-    @BeforeEach
-    public void setup() {
-        depMapper = new DepartmentMapperImpl();
-    }
+  @BeforeEach
+  public void setup() {
+    depMapper = new DepartmentMapperImpl();
+  }
 
-    @Test
-    public void shouldMapUpdateDepartmentDTOToDepartmentEntity() {
-        UpdateDepartmentDTO updateDepartmentDTO =
-                UpdateDepartmentDTO.builder()
-                        .id("dep-id")
-                        .name("name")
-                        .isHiring(true)
-                        .orgId("org-id")
-                        .build();
-        Department dep = depMapper.toDepartment(updateDepartmentDTO);
-        Assertions.assertEquals(dep.getName(), updateDepartmentDTO.getName());
-        Assertions.assertEquals(dep.getIsHiring(), updateDepartmentDTO.getIsHiring());
-        Assertions.assertEquals(dep.getOrgId(), updateDepartmentDTO.getOrgId());
-    }
-
+  @Test
+  public void shouldMapUpdateDepartmentDTOToDepartmentEntity() {
+    UpdateDepartmentDTO updateDepartmentDTO =
+        UpdateDepartmentDTO.builder()
+            .id("dep-id")
+            .name("name")
+            .isHiring(true)
+            .orgId("org-id")
+            .build();
+    Department dep = depMapper.toDepartment(updateDepartmentDTO);
+    Assertions.assertEquals(dep.getName(), updateDepartmentDTO.getName());
+    Assertions.assertEquals(dep.getIsHiring(), updateDepartmentDTO.getIsHiring());
+    Assertions.assertEquals(dep.getOrgId(), updateDepartmentDTO.getOrgId());
+  }
 }

@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UpdateCVCompetencesCommandHandler implements CommandHandler {
 
-  private enum UpdateCVCompetencesState implements CommandState {
+  public enum UpdateCVCompetencesState implements CommandState {
     WAITING_FOR_UPDATE_COMPETENCES_CV_DECISION(
         "UPDATE_COMPETENCES_CV_WAITING_FOR_DECISION",
         "You want to update competences for your CV? (Y or N)"),
